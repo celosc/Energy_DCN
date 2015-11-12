@@ -35,8 +35,8 @@
 "00:00:00:00:00:8"}],
 "links":[
 {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
-{"source":6,"target":4,"capacity":1000,"weight":27,"ports":{"S7":1,"S5":1}},
-{"source":6,"target":5,"capacity":1000,"weight":27,"ports":{"S7":2,"S6":1}},
+{"source":6,"target":4,"capacity":1000,"weight":1,"ports":{"S7":1,"S5":1}},
+{"source":6,"target":5,"capacity":1000,"weight":1,"ports":{"S7":2,"S6":1}},
 {"source":4,"target":0,"capacity":100,"weight":27,"ports":{"S5":2,"S1":1}},
 {"source":4,"target":1,"capacity":100,"weight":27,"ports":{"S5":3,"S2":1}},
 {"source":2,"target":5,"capacity":100,"weight":27,"ports":{"S3":1,"S6":2}},
