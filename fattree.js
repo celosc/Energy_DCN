@@ -3,19 +3,19 @@
 "multigraph":true,
 "graph":[],
 "nodes":[
-{"id":"S1","type":"switch","x":291,"y":299.5,"demand":"","cost":"","capacity":""},
+{"id":"S1","type":"switch","layer":"access","x":291,"y":299.5,"demand":"","cost":"","capacity":""},
 
-{"id":"S2","type":"switch","x":377,"y":300,"demand":"","cost":"","capacity":""},
+{"id":"S2","type":"switch","layer":"access","x":377,"y":300,"demand":"","cost":"","capacity":""},
 
-{"id":"S3","type":"switch","x":490,"y":299,"demand":"","cost":"","capacity":""},
+{"id":"S3","type":"switch","layer":"access","x":490,"y":299,"demand":"","cost":"","capacity":""},
 
-{"id":"S4","type":"switch","x":572.7804565429688,"y":301.387451171875,"demand":"","cost":"","capacity":""},
+{"id":"S4","type":"switch","layer":"access","x":572.7804565429688,"y":301.387451171875,"demand":"","cost":"","capacity":""},
 
-{"id":"S5","type":"switch","x":330,"y":242.5,"demand":"","cost":"","capacity":""},
+{"id":"S5","type":"switch","layer":"aggregation","x":330,"y":242.5,"demand":"","cost":"","capacity":""},
 
-{"id":"S6","type":"switch","x":529.5967407226562,"y":239.7475128173828,"demand":"","cost":"","capacity":""},
+{"id":"S6","type":"switch","layer":"aggregation","x":529.5967407226562,"y":239.7475128173828,"demand":"","cost":"","capacity":""},
 
-{"id":"S7","type":"switch","x":426.5,"y":181.5,"demand":"","cost":"","capacity":""},
+{"id":"S7","type":"switch","layer":"core","x":426.5,"y":181.5,"demand":"","cost":"","capacity":""},
 
 {"id":"H1","type":"host","x":264.5,"y":338,"demand":"","cost":"","capacity":"","ip": "10.0.0.1", "mac": "00:00:00:00:00:1"},
 {"id":"H2","type":"host","x":312,"y":337,"demand":"","cost":"","capacity":"","ip": "10.0.0.2", "mac": "00:00:00:00:00:2"},
@@ -35,8 +35,8 @@
 "00:00:00:00:00:8"}],
 "links":[
 {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
-{"source":6,"target":4,"capacity":1000,"weight":1,"ports":{"S7":1,"S5":1}},
-{"source":6,"target":5,"capacity":1000,"weight":1,"ports":{"S7":2,"S6":1}},
+{"source":6,"target":4,"capacity":1000,"weight":27,"ports":{"S7":1,"S5":1}},
+{"source":6,"target":5,"capacity":1000,"weight":27,"ports":{"S7":2,"S6":1}},
 {"source":4,"target":0,"capacity":100,"weight":27,"ports":{"S5":2,"S1":1}},
 {"source":4,"target":1,"capacity":100,"weight":27,"ports":{"S5":3,"S2":1}},
 {"source":2,"target":5,"capacity":100,"weight":27,"ports":{"S3":1,"S6":2}},

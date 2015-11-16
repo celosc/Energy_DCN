@@ -17,7 +17,6 @@
 import networkx as nx
 from networkx.readwrite import json_graph
 import json
-import matplotlib.pyplot as plt
 
 
 def computeL2FwdTables(g):
@@ -27,9 +26,12 @@ def computeL2FwdTables(g):
     """
     # Figure out which nodes are hosts or switches
     nodes = g.nodes()
+    #print "Nodes", nodes
     hosts = [n for n in nodes if g.node[n]['type'] == 'host']
+    #print "Hosts", hosts
     switches = [n for n in nodes if g.node[n]['type'] == 'switch']
-
+    #print "switches", switches
+    
     # Create the switch to host mapping, i.e., lists of hosts associated with
     # switches
     switch_host_map = {}
@@ -37,12 +39,14 @@ def computeL2FwdTables(g):
         switch_host_map[s] = []
     for h in hosts:
         hedges = g.edges(h)
+        #print hedges
         if len(hedges) != 1:
             raise Exception("Hosts must be connected to only one switch in this model")
         other = hedges[0][1]  # Should be the other side of the link
         if not other in switches:
             raise Exception("Hosts must be connected only with a switch in this model")
         switch_host_map[other].append(h)  #Okay add the host to the switch map
+        #print "switch map: ", switch_host_map
 
     # Get switch only subgraph and compute all the shortest paths with NetworkX
     g_switches = g.subgraph(switches)
@@ -84,7 +88,3 @@ if __name__ == '__main__':
     for s in fwdTable.keys():
         print "Switch {} forwarding table:".format(s)
         print fwdTable[s]
-        
-nx.draw_shell(g)
-plt.show()
-
