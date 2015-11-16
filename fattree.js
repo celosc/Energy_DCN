@@ -3,36 +3,23 @@
 "multigraph":true,
 "graph":[],
 "nodes":[
-{"id":"S1","type":"switch","layer":"access","x":291,"y":299.5,"demand":"","cost":"","capacity":""},
 
-{"id":"S2","type":"switch","layer":"access","x":377,"y":300,"demand":"","cost":"","capacity":""},
-
-{"id":"S3","type":"switch","layer":"access","x":490,"y":299,"demand":"","cost":"","capacity":""},
-
-{"id":"S4","type":"switch","layer":"access","x":572.7804565429688,"y":301.387451171875,"demand":"","cost":"","capacity":""},
-
-{"id":"S5","type":"switch","layer":"aggregation","x":330,"y":242.5,"demand":"","cost":"","capacity":""},
-
-{"id":"S6","type":"switch","layer":"aggregation","x":529.5967407226562,"y":239.7475128173828,"demand":"","cost":"","capacity":""},
-
-{"id":"S7","type":"switch","layer":"core","x":426.5,"y":181.5,"demand":"","cost":"","capacity":""},
-
-{"id":"H1","type":"host","x":264.5,"y":338,"demand":"","cost":"","capacity":"","ip": "10.0.0.1", "mac": "00:00:00:00:00:1"},
-{"id":"H2","type":"host","x":312,"y":337,"demand":"","cost":"","capacity":"","ip": "10.0.0.2", "mac": "00:00:00:00:00:2"},
-{"id":"H3","type":"host","x":351,"y":337.5,"demand":"","cost":"","capacity":"","ip": "10.0.0.3", "mac": "00:00:00:00:00:3"},
-{"id":"H4","type":"host","x":395.5,"y":337,"demand":"","cost":"","capacity":"","ip": "10.0.0.4", "mac": "00:00:00:00:00:4"
-},{"id":"H6","type":"host","x":515.0240478515625,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip": "10.0.0.6", "mac": 
-
-"00:00:00:00:00:6"
-},{"id":"H5","type":"host","x":470.810546875,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip": "10.0.0.5", "mac": 
-
-"00:00:00:00:00:5"
-},{"id":"H7","type":"host","x":556.051025390625,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip": "10.0.0.7", "mac": 
-
-"00:00:00:00:00:7"
-},{"id":"H8","type":"host","x":594.6881103515625,"y":337.6345520019531,"demand":"","cost":"","capacity":"","ip": "10.0.0.8", "mac": 
-
-"00:00:00:00:00:8"}],
+{"id":"S1","type":"switch","layer":"access","x":291,"y":299.5,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S1","type":"switch","layer":"access","x":291,"y":299.5,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S2","type":"switch","layer":"access","x":377,"y":300,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S3","type":"switch","layer":"access","x":490,"y":299,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S4","type":"switch","layer":"access","x":572.7804565429688,"y":301.387451171875,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S5","type":"switch","layer":"aggregation","x":330,"y":242.5,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S6","type":"switch","layer":"aggregation","x":529.5967407226562,"y":239.7475128173828,"demand":"","cost":"","capacity":"","status":"on", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"S7","type":"switch","layer":"core","x":426.5,"y":181.5,"demand":"","cost":"","capacity":"","status":"off", "ports":[{"id":1, "link": 100, "status":"on"},{"id":2, "link": 100, "status":"on"},{"id":3, "link": 100, "status":"on"},{"id":4, "link": 100, "status":"on"},{"id":5, "link": 100, "status":"on"}]},
+{"id":"H1","type":"host","x":264.5,"y":338,"demand":"","cost":"","capacity":"","ip":"10.0.0.1","mac":"00:00:00:00:00:1"},
+{"id":"H2","type":"host","x":312,"y":337,"demand":"","cost":"","capacity":"","ip":"10.0.0.2","mac":"00:00:00:00:00:2"},
+{"id":"H3","type":"host","x":351,"y":337.5,"demand":"","cost":"","capacity":"","ip":"10.0.0.3","mac":"00:00:00:00:00:3"},
+{"id":"H4","type":"host","x":395.5,"y":337,"demand":"","cost":"","capacity":"","ip":"10.0.0.4","mac":"00:00:00:00:00:4"},
+{"id":"H6","type":"host","x":515.0240478515625,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip":"10.0.0.6","mac":"00:00:00:00:00:6"},
+{"id":"H5","type":"host","x":470.810546875,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip":"10.0.0.5","mac":"00:00:00:00:00:5"},
+{"id":"H7","type":"host","x":556.051025390625,"y":337.2362365722656,"demand":"","cost":"","capacity":"","ip":"10.0.0.7","mac":"00:00:00:00:00:7"},
+{"id":"H8","type":"host","x":594.6881103515625,"y":337.6345520019531,"demand":"","cost":"","capacity":"","ip":"10.0.0.8","mac":"00:00:00:00:00:8"}],
 "links":[
 {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
 {"source":6,"target":4,"capacity":1000,"weight":27,"ports":{"S7":1,"S5":1}},

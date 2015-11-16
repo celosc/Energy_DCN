@@ -18,7 +18,7 @@ def power_efficiency(g): #Algoritimo Power Efficiency
         for n in ed[1].iteritems():
             n[1][0]['capacity'] = 10
     
-    print "\n DEPOIS DE MUDAR A CAPACIDADE \n"
+    print "\n DEPOIS DE MUDAR A CAPACIDADE "
     print_energy(g)
 
 #ports: [{nr:1, status: on, link: 10}, {inr:2, status: off, link: 1000}]
@@ -41,21 +41,31 @@ def print_energy(g): #Funcao que verifica o consumo de energia
         if (e[1][0] == 'S'):
             total_portas += cost
     
-    print "O consumo dos switches eh: ", energy_sw, "W/h"
+    print "\nO consumo dos switches eh: ", energy_sw, "W/h"
     print "O consumo das portas eh: ", total_portas, "W/h"
     print "O consumo total da topologia eh: ", energy_sw + total_portas, "W/h"
 
 # Faz a leitura do arquivo JSON com as informacoes da topologia
 g = json_graph.node_link_graph(json.load(open("fattree.js")))
-#print "Nodes do grafo: {}".format(g.nodes())  # Lista os nodos
-#print "graph nodes: {}".format(g.nodes("id"))  # Lists nodes
-#print "graph links: {}".format(g.edges())  #  Shows link info
-#print "Todas as informacoes dos links do grafo: {}".format(g.edges(data=True))  #  Shows link info
-'''
-for n in g.nodes():  # See that hosts are assigned addresses
-    if g.node[n]["type"] == 'host':
-        print "Host {}, IP = {}, MAC = {}".format(n, g.node[n]['ip'], g.node[n]['mac']) 
-'''
+
+
+def status_sw(g): #Funcao que verifica quais sw estao ligados
+    sw_on = 0
+    sw_off = 0
+    for n in g.nodes(): #
+        if g.node[n]["type"] == 'switch':
+            if g.node[n]["status"] == 'on':
+                sw_on = n
+                #print "O switch %s esta ligado" %n
+                print "O switch %s esta ligado" %sw_on
+            if g.node[n]["status"] == 'off':
+                sw_off = n
+                #print "O switch %s esta desligado\n " %n
+                print "O switch %s esta desligado " %sw_off
+
+status_sw(g)
+
+
 print_energy(g)
 
 #Utiliza o algoritimo de Djisktra para a escolha do melhor caminho
@@ -75,3 +85,4 @@ plt.title ("Fattree Energy Topology")
 pos=nx.shell_layout(g) # Posicao de todos os nodes
 plt.show()
 '''
+
