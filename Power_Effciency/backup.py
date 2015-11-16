@@ -15,3 +15,14 @@ total_energy = energy_layer_sw + total_portas
 print "O consumo dos switches eh: ", energy_layer_sw, "W/h"
 print "O consumo das portas eh: ", total_portas, "W/h"
 print "O consumo total da topologia eh: ",total_energy,  "W/h"
+
+
+
+
+energy_sw = 0
+for n in g.nodes():  # See that hosts are assigned addresses
+    if g.node[n]["type"] == 'switch':
+        #print "Switch {}, Layer = {}".format(n, g.node[n]['layer'])
+        layer_sw = g.node[n]['layer'] == "access" and 60.0 or g.node[n]['layer'] == "aggregation" and 140.0 or 150.0
+        energy_sw += layer_sw
+    print energy_sw
