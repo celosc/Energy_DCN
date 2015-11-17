@@ -29,8 +29,9 @@ def print_energy(g): #Funcao que verifica o consumo de energia
     energy_sw = 0
     for n in g.nodes():  #
         if g.node[n]["type"] == 'switch':
-            layer_sw = g.node[n]['layer'] == "access" and 60.0 or g.node[n]['layer'] == "aggregation" and 140.0 or 150.0
-            energy_sw += layer_sw
+            if g.node[n]["status"] == 'on':
+                layer_sw = g.node[n]['layer'] == "access" and 60.0 or g.node[n]['layer'] == "aggregation" and 140.0 or 150.0
+                energy_sw += layer_sw
             
     #Verifica as portas existentes nos switches da topologia e atribui o consumo para elas
     total_portas = 0
@@ -49,23 +50,6 @@ def print_energy(g): #Funcao que verifica o consumo de energia
 g = json_graph.node_link_graph(json.load(open("fattree.js")))
 
 
-def status_sw(g): #Funcao que verifica quais sw estao ligados
-    sw_on = 0
-    sw_off = 0
-    for n in g.nodes(): #
-        if g.node[n]["type"] == 'switch':
-            if g.node[n]["status"] == 'on':
-                sw_on = n
-                #print "O switch %s esta ligado" %n
-                print "O switch %s esta ligado" %sw_on
-            if g.node[n]["status"] == 'off':
-                sw_off = n
-                #print "O switch %s esta desligado\n " %n
-                print "O switch %s esta desligado " %sw_off
-
-status_sw(g)
-
-
 print_energy(g)
 
 #Utiliza o algoritimo de Djisktra para a escolha do melhor caminho
@@ -79,10 +63,44 @@ power_efficiency(g)
 print "O menor caminho com base no weigth eh ", (path)
 
 '''
-#Faz a plotagem do grafo   
-nx.draw_networkx(g, node_size=800,)
-plt.title ("Fattree Energy Topology")
-pos=nx.shell_layout(g) # Posicao de todos os nodes
-plt.show()
+status_port = 0
+for n in g.nodes():  #
+    if g.node[n]["type"] == 'switch':
+        if g.node[n]["port"] e[2]['capacity']:
+            print "Switch {}, port = {}".format(n, g.node[n]['port']
+
+total_portas = 0
+    for e in g.edges(data=True):
+        cost = e[2]['capacity'] == 10 and 1.5 or e[2]['capacity'] == 100 and 2.5 or 5.0
+        if (e[0][0] == 'S'):        
+
 '''
+#for ed in g.nodes():
+#    for n in ed():
+#        if n[1][0]["status"] == 'on':
+#            print "OK"
+#        else:
+#            print "NOK"
+        
+
+    
+''' 
+    if g.node[n]["type"] == 'switch':
+for n in ed[1]():
+            n[1][0]['capacity'] = 10
+        if g.node[n]["ports"][1] == 'status':
+            print "OK"
+        else:
+            print "NOK"
+      
+'''
+#Exemplo ports do switch no JSON 
+#"ports":[{"id":1, "link": 100, "status":"on"}
+
+
+#Faz a plotagem do grafo   
+#nx.draw_networkx(g, node_size=800,)
+#plt.title ("Fattree Energy Topology")
+#pos=nx.shell_layout(g) # Posicao de todos os nodes
+#plt.show()
 

@@ -39,4 +39,27 @@ for n in g.nodes():  # See that hosts are assigned addresses
 for n in g.nodes():  # See that hosts are assigned addresses
     if g.node[n]["type"] == 'host':
         print "Host {}, IP = {}, MAC = {}".format(n, g.node[n]['ip'], g.node[n]['mac']) 
+        
+        
+        '''
 '''
+def status_sw(g): #Funcao que verifica quais sw estao ligados
+    sw_on = 0
+    sw_off = 0
+    for n in g.nodes(): #
+        if g.node[n]["type"] == 'switch':
+            if g.node[n]["status"] == 'on':
+                sw_on = n
+                #print "O switch %s esta ligado" %n
+                print "O switch %s esta ligado" %sw_on
+            if g.node[n]["status"] == 'off':
+                sw_off = n
+                #print "O switch %s esta desligado\n " %n
+                print "O switch %s esta desligado " %sw_off
+
+status_sw(g)
+
+'''
+        
+for n in g.nodes(data=True):
+    print json.dumps(n,indent=1)
