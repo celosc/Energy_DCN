@@ -3,7 +3,7 @@ import networkx as nx
  
 # create directed graph
 G = nx.DiGraph()
- 
+#Teste2
 # add node to graph with negative (!) supply for each supply node 
 G.add_node(1, demand = -90)
  
