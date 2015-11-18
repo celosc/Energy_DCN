@@ -16,7 +16,7 @@ print "O consumo dos switches eh: ", energy_layer_sw, "W/h"
 print "O consumo das portas eh: ", total_portas, "W/h"
 print "O consumo total da topologia eh: ",total_energy,  "W/h"
 
-print teste
+print teste2
 
 
 energy_sw = 0
