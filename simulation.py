@@ -81,25 +81,61 @@ def bw_edge_capacity(edge, graph):
         Recebe uma aresta da rede, olha para os nodos e pega a MENOR capacidade entre eles
     '''
     
+    # armazena os nodos que estao a esquerda e direita da aresta
     node_left = edge[0]
     node_right = edge[1]
+
+    #print "esquerda: {} | direita: {}".format(node_left, node_right)
+
+
+    # armazena o numero da porta ao qual um nodo esta conectado com o outro
+    # que sera usado para identificar a porta do outro lado da conexao
+    node_left_conn_port = get_node_port_connection(node_left, edge)
+    node_right_conn_port = get_node_port_connection(node_right, edge)
     
-    node_left_cap = 100 # pega a capacidade olhando para o nodo no grafo
-    node_right_cap = 1000 # pega a capacidade olhando para o nodo no grafo
+    #print "esquerda port id: {} | direita port id: {}".format(node_left_conn_port, node_right_conn_port)
     
-    smaller = 0
+    node_left_cap = get_port_bw(node_left_conn_port ,graph.node[node_left]['ports'])
+    node_right_cap = get_port_bw(node_right_conn_port ,graph.node[node_right]['ports'])
+
+    #print "cap esquerda: {} | cap direita {}".format(node_left_cap, node_right_cap)
+
+    smallest = 0
     
     if node_left_cap < node_right_cap:
-        smaller = node_left_cap
+        smallest = node_left_cap
     elif node_left_cap > node_right_cap:
-        smaller  = node_right_cap
+        smallest  = node_right_cap
     else:
-        smaller = node_right_cap
+        smallest = node_right_cap
     
     
-    print "esquerda: {} | direita: {}| menor: {} |edge: {}".format(node_left, node_right, smaller, edge)
+    #print "esquerda: {} | direita: {} | menor: {} | edge: {}".format(node_left, node_right, smallest, edge)
 
-    pass
+    return smallest
+
+def get_port_bw(port_id, node_ports):
+    '''
+        Dada a identificacao de uma porta, retorna a bw do link
+    '''
+    for port in node_ports:
+        if port['id'] == port_id:
+            return port['link']
+
+    return -1
+
+
+def get_node_port_connection(node, edge):  
+    """
+        Dado uma determinada aresta e um nodo, recupera a porta
+        na qual o nodo esta conectado ao outro
+
+        Exemplo:
+            Dada a edge: {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
+            e node S4, retorna 3
+    """
+
+    return edge[2]['ports'][node]
 
 
 def can_my_network_handle_the_workload(workload, graph):
@@ -127,10 +163,10 @@ def can_my_network_handle_the_workload(workload, graph):
     
 g = json_graph.node_link_graph(json.load(open("fattree.js")))
 
-can_my_network_handle_the_workload(100, g)
+print can_my_network_handle_the_workload(100, g)
 
 
-print_energy(g)
+#print_energy(g)
 
 #Utiliza o algoritimo de Djisktra para a escolha do melhor caminho
 length,path=nx.bidirectional_dijkstra(g,"H1","H6")
