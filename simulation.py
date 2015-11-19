@@ -183,4 +183,4 @@ print "O menor caminho com base no weigth eh ", (path)
 #plt.title ("Fattree Energy Topology")
 #pos=nx.shell_layout(g) # Posicao de todos os nodes
 #plt.show()
-
+#TESTE GITHUB
