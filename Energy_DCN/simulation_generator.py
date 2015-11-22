@@ -8,6 +8,7 @@ INFOCOM, 2012 Proceedings IEEE. IEEE, 2012.
 1 Gbps = 1W/h  
 Switch de 48 portas 70W/h
 
+
 Topologia Fattree baseado em A Scalable Commodity Data Center Network Architecture" by Al-Fares,
 Loukissas and Vahdat
 k = number of ports per switch = number of pods
