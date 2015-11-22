@@ -89,11 +89,11 @@ def print_energy(g): #Funcao que verifica o consumo de energia
                 #print " -----> node: {} | total node energy: {}".format(n,layer_sw)
     # Verifica as portas existentes nos switches da topologia e atribui o consumo para elas
 
-    print "O consumo dos switches eh: ", energy_sw, "W/h\n"
+    print "\nO consumo dos switches eh: ", energy_sw, "W/h\n"
     print "O consumo das portas eh: ", total_portas, "W/h\n"
     print "O consumo total da topologia eh: ", energy_sw + total_portas, "W/h\n"
 
-# Faz a leitura do arquivo JSON com as informacoes da topologia
+
 
 def bw_edge_capacity(edge, graph):
     
@@ -104,16 +104,9 @@ def bw_edge_capacity(edge, graph):
     node_right = edge[1]
 
     #print "esquerda: {} | direita: {}".format(node_left, node_right)
-
-    # armazena o numero da porta ao qual um nodo esta conectado com o outro
-    # que sera usado para identificar a porta do outro lado da conexao
-    node_left_conn_port = get_node_port_connection(node_left, edge)
-    node_right_conn_port = get_node_port_connection(node_right, edge)
     
-    #print "esquerda port id: {} | direita port id: {}".format(node_left_conn_port, node_right_conn_port)
-    
-    node_left_cap = get_port_bw(node_left_conn_port ,graph.node[node_left]['ports'])
-    node_right_cap = get_port_bw(node_right_conn_port ,graph.node[node_right]['ports'])
+    node_left_cap = get_port_bw(node_left, edge)
+    node_right_cap = get_port_bw(node_right, edge)
 
     #print "cap esquerda: {} | cap direita {}".format(node_left_cap, node_right_cap)
 
@@ -126,33 +119,38 @@ def bw_edge_capacity(edge, graph):
     else:
         smallest = node_right_cap
     
-    
     #print "esquerda: {} | direita: {} | menor: {} | edge: {}".format(node_left, node_right, smallest, edge)
 
     return smallest
 
-def get_port_bw(port_id, node_ports):
+def get_port_bw(node, edge):  
+        
+        return edge[2]['link']
     
-        #Dada a identificacao de uma porta, retorna a bw do link
+
+def list_ports_node(edge, graph): #teste de captura de portas de origem
     
-    for port in node_ports:
-        if port['id'] == port_id:
-            return port['link']
+    source_node = edge[0]
+    destination_node = edge[1]
+    
+    port_source_node = get_port_nr(source_node, edge)
+    port_destination_node = get_port_nr_dst(destination_node, edge)
+    print "source node: {} | source port: {} ".format(source_node, port_source_node)
+    print "source node: {} | destination port: {} ".format(destination_node, port_destination_node)
+    
+def get_port_nr(node, edge):  
+        
+        return edge[2]['src_port']
+    
+def get_port_nr_dst(node, edge):  
+        
+        return edge[2]['dst_port']    
+    
+def print_source_ports_nodes(graph):
 
-    return -1
-
-
-def get_node_port_connection(node, edge):  
-        """
-        Dado uma determinada aresta e um nodo, recupera a porta
-        na qual o nodo esta conectado ao outro
-
-        Exemplo:
-            Dada a edge: {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
-            e node S4, retorna 3
-        """
-        return edge[2]['ports'][node]
-
+    
+    for edge in graph.edges(data=True):  # para cada link, verifica se atende a capacidade
+        ports_nodes = list_ports_node(edge, graph)
 
 def can_my_network_handle_the_workload(workload, graph):
     '''
@@ -175,6 +173,7 @@ def can_my_network_handle_the_workload(workload, graph):
             return False
     
     return True
+
    
 def mk_topo(pods, bw):
     num_hosts         = (pods ** 3)/4
@@ -268,7 +267,12 @@ def print_pods_information():
 args = parse_args()
 g = mk_topo(args.pods,args.bw)
 
-#print can_my_network_handle_the_workload(100, g)
+#Retorna as conexoes do nodo "S1"
+#print g.edges(nbunch="S1", data=True)
+
+print print_source_ports_nodes(g)
+
+print can_my_network_handle_the_workload(100, g)
 
 start_time = datetime.now()
 
@@ -277,7 +281,7 @@ print_energy(g)
 print_paths(g)
 
 end_time = datetime.now()
-print('Duration of simulation: {}'.format(end_time - start_time))
+print('Duration: {}'.format(end_time - start_time))
      
 #Faz a plotagem do grafo   
 #nx.draw_networkx(g, node_size=800,)
