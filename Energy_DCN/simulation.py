@@ -1,7 +1,7 @@
 '''Consumo de energia da rede baseado em:
-Mahadevan, Priya, et al. "A power benchmarking framework for network devices." 
+1) Mahadevan, Priya, et al. "A power benchmarking framework for network devices." 
 NETWORKING 2009. Springer Berlin Heidelberg, 2009. 795-808.
-Wang, Xiaodong, et al. "Carpo: Correlation-aware power optimization in data center networks." 
+2) Wang, Xiaodong, et al. "Carpo: Correlation-aware power optimization in data center networks." 
 INFOCOM, 2012 Proceedings IEEE. IEEE, 2012.
 10 Mbps = 0,15 W/h
 100 Mbps = 0,3W/h
@@ -18,7 +18,7 @@ def power_efficiency(g): #Esboco do metodo para alteracao das velocidade das por
         for n in ed[1].iteritems():
             n[1][0]['capacity'] = 10
     
-    print "\n DEPOIS DE MUDAR A CAPACIDADE "
+    #print "\n DEPOIS DE MUDAR A CAPACIDADE "
     print_energy(g)
 
 def print_energy(g): #Funcao que verifica o consumo de energia
@@ -45,7 +45,7 @@ def print_energy(g): #Funcao que verifica o consumo de energia
                     if link['status'] == 'on':  # verifica se a porta esta ligada
                         
                         # calcula o consumo da porta baseada na sua velocidade
-                        link_consumption = link['link'] == 10 and 1.5 or link['link'] == 100 and 2.5 or 5.0
+                        link_consumption = link['link'] == 100 and 1.5 or link['link'] == 1000 and 2.5 or 5.0
                     
                         # acumula o consumo da porta
                         layer_sw_port_consumption_sum += link_consumption
@@ -81,25 +81,60 @@ def bw_edge_capacity(edge, graph):
         Recebe uma aresta da rede, olha para os nodos e pega a MENOR capacidade entre eles
     '''
     
+    # armazena os nodos que estao a esquerda e direita da aresta
     node_left = edge[0]
     node_right = edge[1]
+
+    #print "esquerda: {} | direita: {}".format(node_left, node_right)
+
+    # armazena o numero da porta ao qual um nodo esta conectado com o outro
+    # que sera usado para identificar a porta do outro lado da conexao
+    node_left_conn_port = get_node_port_connection(node_left, edge)
+    node_right_conn_port = get_node_port_connection(node_right, edge)
     
-    node_left_cap = 100 # pega a capacidade olhando para o nodo no grafo
-    node_right_cap = 1000 # pega a capacidade olhando para o nodo no grafo
+    #print "esquerda port id: {} | direita port id: {}".format(node_left_conn_port, node_right_conn_port)
     
-    smaller = 0
+    node_left_cap = get_port_bw(node_left_conn_port ,graph.node[node_left]['ports'])
+    node_right_cap = get_port_bw(node_right_conn_port ,graph.node[node_right]['ports'])
+
+    #print "cap esquerda: {} | cap direita {}".format(node_left_cap, node_right_cap)
+
+    smallest = 0
     
     if node_left_cap < node_right_cap:
-        smaller = node_left_cap
+        smallest = node_left_cap
     elif node_left_cap > node_right_cap:
-        smaller  = node_right_cap
+        smallest  = node_right_cap
     else:
-        smaller = node_right_cap
+        smallest = node_right_cap
     
     
-    print "esquerda: {} | direita: {}| menor: {} |edge: {}".format(node_left, node_right, smaller, edge)
+    #print "esquerda: {} | direita: {} | menor: {} | edge: {}".format(node_left, node_right, smallest, edge)
 
-    pass
+    return smallest
+
+def get_port_bw(port_id, node_ports):
+    '''
+        Dada a identificacao de uma porta, retorna a bw do link
+    '''
+    for port in node_ports:
+        if port['id'] == port_id:
+            return port['link']
+
+    return -1
+
+
+def get_node_port_connection(node, edge):  
+    """
+        Dado uma determinada aresta e um nodo, recupera a porta
+        na qual o nodo esta conectado ao outro
+
+        Exemplo:
+            Dada a edge: {"source":3,"target":13,"capacity":100,"weight":27,"ports":{"S4":3,"H7":1}},
+            e node S4, retorna 3
+    """
+
+    return edge[2]['ports'][node]
 
 
 def can_my_network_handle_the_workload(workload, graph):
@@ -127,18 +162,28 @@ def can_my_network_handle_the_workload(workload, graph):
     
 g = json_graph.node_link_graph(json.load(open("fattree.js")))
 
-can_my_network_handle_the_workload(100, g)
+print can_my_network_handle_the_workload(100, g)
 
 
-print_energy(g)
+#print_energy(g)
 
 #Utiliza o algoritimo de Djisktra para a escolha do melhor caminho
-length,path=nx.bidirectional_dijkstra(g,"H1","H6")
+#length,path=nx.bidirectional_dijkstra(g,"H1","H6")
+
+for path in nx.all_simple_paths(g, source="H1", target="H6"):
+    print(path)
+
+paths = nx.all_simple_paths(g, source="H1", target="H6")
+#print(list(paths))
+
+print paths
 
 print "O menor caminho com base no weigth eh ", (path)
 
 # altera a capacidade de todos os switches para 10
-#power_efficiency(g)
+power_efficiency(g)
+
+print g.edge
 
 #print "O menor caminho com base no weigth eh ", (path)
      
@@ -147,4 +192,4 @@ print "O menor caminho com base no weigth eh ", (path)
 #plt.title ("Fattree Energy Topology")
 #pos=nx.shell_layout(g) # Posicao de todos os nodes
 #plt.show()
-
+#TESTE GITHUB
